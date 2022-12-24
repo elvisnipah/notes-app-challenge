@@ -14,23 +14,19 @@ const app = express();
 //middleware
 app.use(express.json());
 
-app.use((req, res, next) => {
-  console.log(req.path, req.method);
-  next();
-});
-
 //use routes from the noteRoutes variable
 app.use("/api/notes", noteRoutes);
 
 //connect to mongodb
+mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {})
+  .then(() => {
+    //listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log("connected to db & listening on port", process.env.PORT);
+    });
+  })
   .catch((err) => {
     console.log(err);
   });
-
-//listen for requests using the env variable 'PORT'
-app.listen(process.env.PORT, () => {
-  console.log("listening on port", process.env.PORT);
-});
