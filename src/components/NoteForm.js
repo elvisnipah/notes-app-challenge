@@ -17,7 +17,6 @@ function NoteForm() {
         [event.target.name]: event.target.value,
       };
     });
-    console.log(formData);
   }
 
   async function handleSubmit(event) {
