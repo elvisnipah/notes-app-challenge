@@ -1,7 +1,8 @@
 import React from "react";
+import NoteForm from "./NoteForm";
 
 function Body() {
-  const notes = false;
+  const notes = true;
   return (
     <div>
       {/* if there are no notes, render this div informing user of no notes */}
@@ -11,6 +12,7 @@ function Body() {
           a new note.
         </div>
       )}
+      {notes && <NoteForm />}
     </div>
   );
 }
