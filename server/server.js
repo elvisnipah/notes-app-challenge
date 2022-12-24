@@ -1,6 +1,10 @@
 const express = require("express");
+
+const mongoose = require("mongoose");
+
 //routes for notes
 const noteRoutes = require("./routes/notes");
+
 //add the env variables
 require("dotenv").config();
 
@@ -17,6 +21,14 @@ app.use((req, res, next) => {
 
 //use routes from the noteRoutes variable
 app.use("/api/notes", noteRoutes);
+
+//connect to mongodb
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {})
+  .catch((err) => {
+    console.log(err);
+  });
 
 //listen for requests using the env variable 'PORT'
 app.listen(process.env.PORT, () => {
