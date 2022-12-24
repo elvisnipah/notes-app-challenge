@@ -1,12 +1,16 @@
-import Body from "./components/Body";
 import Header from "./components/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
 
 function App() {
   return (
     <div className="flex flex-col grow">
       <Header />
-      <Body />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
