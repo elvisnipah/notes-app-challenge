@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import data from "./data";
 
 function NoteForm() {
   // create state for the note form
@@ -7,6 +6,8 @@ function NoteForm() {
     title: "",
     body: "",
   });
+
+  const [error, setError] = useState(null);
 
   //store new note values in the formData state
   function handleChange(event) {
@@ -19,14 +20,31 @@ function NoteForm() {
     console.log(formData);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    data.push(formData);
-    console.log(data);
-    setFormData({
-      title: "",
-      body: "",
+
+    const response = await fetch("/api/notes", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error);
+    }
+
+    if (response.ok) {
+      setFormData({
+        title: "",
+        body: "",
+      });
+      setError(null);
+      console.log("new note added");
+    }
   }
 
   return (
@@ -57,7 +75,7 @@ function NoteForm() {
       <input
         type="submit"
         value="Add Note"
-        className="bg-green-400 w-32 p-3 rounded-xl text-white font-bold self-center"
+        className="bg-green-400 w-32 p-3 rounded-xl text-white font-bold self-center hover:border-emerald-900 hover:bg-green-700 hover:cursor-pointer"
       />
     </form>
   );

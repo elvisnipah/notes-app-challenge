@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import NoteInfo from "../components/NoteInfo";
 
 function Home() {
   const [notes, setNotes] = useState(null);
@@ -16,8 +17,10 @@ function Home() {
     fetchNotes();
   }, []);
   return (
-    <div className="font-bold p-5">
-      {notes && notes.map((note) => <p key={note._id}>{note.title}</p>)}
+    <div>
+      <div className="p-5">
+        {notes && notes.map((note) => <NoteInfo key={note._id} note={note} />)}
+      </div>
     </div>
   );
 }
