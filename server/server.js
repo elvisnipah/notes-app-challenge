@@ -1,17 +1,22 @@
+const express = require("express");
+//routes for notes
+const noteRoutes = require("./routes/notes");
 //add the env variables
 require("dotenv").config();
-
-const express = require("express");
 
 // express app
 const app = express();
 
-//routes
-app.get("/", (req, res) => {
-  res.json({
-    msg: "Welcome to the app",
-  });
+//middleware
+app.use(express.json());
+
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
 });
+
+//use routes from the noteRoutes variable
+app.use("/api/notes", noteRoutes);
 
 //listen for requests using the env variable 'PORT'
 app.listen(process.env.PORT, () => {
