@@ -10,7 +10,8 @@ const getNotes = async (req, res) => {
 
 //get a single note
 const getNote = async (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
+  console.log(id);
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such note" });
@@ -71,11 +72,12 @@ const updateNote = async (req, res) => {
     return res.status(404).json({ error: "No such note" });
   }
 
-  const note = await Note.findOneAndUpdate(
+  const note = await Note.findByIdAndUpdate(
     { _id: id },
     {
       ...req.body,
-    }
+    },
+    { new: true }
   );
 
   if (!note) {

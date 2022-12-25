@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-function NoteForm() {
+function UpdateNote() {
   // create state for the note form
   const [formData, setFormData] = useState({
     title: "",
@@ -97,4 +97,4 @@ function NoteForm() {
   );
 }
 
-export default NoteForm;
+export default UpdateNote;

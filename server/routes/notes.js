@@ -9,11 +9,11 @@ const {
   updateNote,
 } = require("../controllers/noteController");
 
-//GET all notes
-router.get("/", getNotes);
-
 //GET a single note
 router.get("/:id", getNote);
+
+//GET all notes
+router.get("/", getNotes);
 
 //POST a new note
 router.post("/", createNote);
