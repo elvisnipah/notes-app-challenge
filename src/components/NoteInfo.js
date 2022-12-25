@@ -1,11 +1,14 @@
 import React from "react";
 
+// date fns
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+
 function NoteInfo({ note }) {
   async function handleClick() {
     const response = await fetch("/api/notes/" + note._id, {
       method: "DELETE",
     });
-    const json = await response.json();
+    // const json = await response.json();
 
     if (response.ok) {
       window.location.reload(false);
@@ -18,8 +21,14 @@ function NoteInfo({ note }) {
         {note.title.slice(0, 25)}
       </p>
       <p className="">{note.body.slice(0, 25)}...</p>
-      <p className="text-sm">Created: {note.createdAt}</p>
-      <p className="text-sm">Last Updated: {note.updatedAt}</p>
+      <p className="text-sm">
+        Created{" "}
+        {formatDistanceToNow(new Date(note.createdAt), { addSuffix: true })}
+      </p>
+      <p className="text-sm">
+        Last Updated{" "}
+        {formatDistanceToNow(new Date(note.updatedAt), { addSuffix: true })}
+      </p>
       <div className="flex justify-around">
         <button
           onClick={handleClick}
@@ -28,7 +37,7 @@ function NoteInfo({ note }) {
           Delete
         </button>
         <button className="bg-blue-700 mt-3 p-3 font-bold rounded-lg self-center text-white">
-          Update
+          Edit
         </button>
       </div>
       <hr className="" />
