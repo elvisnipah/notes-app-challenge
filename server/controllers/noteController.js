@@ -29,6 +29,14 @@ const getNote = async (req, res) => {
 const createNote = async (req, res) => {
   const { title, body } = req.body;
 
+  if (!title) {
+    return res.status(400).json({ error: "Please fill in the title field." });
+  }
+
+  if (!body) {
+    return res.status(400).json({ error: "Please fill in the body field." });
+  }
+
   //add note to mongodb
   try {
     const note = await Note.create({ title, body });

@@ -34,6 +34,7 @@ function NoteForm() {
 
     if (!response.ok) {
       setError(json.error);
+      // console.log(json.error);
     }
 
     if (response.ok) {
@@ -43,6 +44,7 @@ function NoteForm() {
       });
       setError(null);
       console.log("new note added");
+      window.location.href = "/";
     }
   }
 
@@ -76,6 +78,15 @@ function NoteForm() {
         value="Add Note"
         className="bg-green-400 w-32 p-3 rounded-xl text-white font-bold self-center hover:border-emerald-900 hover:bg-green-700 hover:cursor-pointer"
       />
+      {error === "note validation failed: title: failed" ? (
+        <div className="self-center border-2 border-red-600 text-red-600 p-2 text-center">
+          Note title already exists. <br></br>Please enter a unique title
+        </div>
+      ) : (
+        <div className="self-center border-2 border-red-600 text-red-600 p-2 text-center">
+          {error}
+        </div>
+      )}
     </form>
   );
 }
