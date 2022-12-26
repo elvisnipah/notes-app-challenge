@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 
 function Note() {
   const [currentNote, setCurrentNote] = useState("");
-  // console.log(currentNote);
   const { id } = useParams();
 
   useEffect(() => {
@@ -13,7 +12,6 @@ function Note() {
 
       if (response.ok) {
         setCurrentNote(json);
-        // console.log(json);
       }
     };
 

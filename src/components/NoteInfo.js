@@ -8,7 +8,6 @@ function NoteInfo({ note }) {
     const response = await fetch("/api/notes/" + note._id, {
       method: "DELETE",
     });
-    // const json = await response.json();
 
     if (response.ok) {
       window.location.reload(false);
