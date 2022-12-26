@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NoteForm from "./components/NoteForm";
 import Note from "./pages/Note";
+import UpdateNote from "./pages/UpdateNote";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/new-note" element={<NoteForm />} />
           <Route path="/:id" element={<Note />} />
+          <Route path="/:id/edit" element={<UpdateNote />} />
         </Routes>
       </BrowserRouter>
     </div>

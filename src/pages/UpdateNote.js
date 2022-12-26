@@ -1,7 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function UpdateNote() {
-  // create state for the note form
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchNote = async () => {
+      const response = await fetch("/api/notes/" + id);
+      const json = await response.json();
+
+      if (response.ok) {
+        // console.log(json);
+        setFormData({
+          title: json.title,
+          body: json.body,
+        });
+      }
+    };
+
+    fetchNote();
+  }, [id]);
+
+  // create state for the note form using the id
   const [formData, setFormData] = useState({
     title: "",
     body: "",
@@ -24,8 +44,8 @@ function UpdateNote() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const response = await fetch("/api/notes", {
-      method: "POST",
+    const response = await fetch("/api/notes/" + id, {
+      method: "PATCH",
       body: JSON.stringify(formData),
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +66,7 @@ function UpdateNote() {
       });
       setError(null);
       setIsError(false);
-      console.log("new note added");
+      console.log("note updated");
       window.location.href = "/";
     }
   }
@@ -54,9 +74,7 @@ function UpdateNote() {
   const ErrorMessage = () => {
     return (
       <div className="self-center border-2 border-red-600 text-red-600 p-2 text-center">
-        {error === "note validation failed: title: failed"
-          ? "Note title already exists. Please enter a unique title"
-          : error}
+        {error}
       </div>
     );
   };

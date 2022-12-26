@@ -35,7 +35,7 @@ function NoteInfo({ note }) {
       <div className="flex">
         <button
           onClick={handleClick}
-          className="px-3 font-bold rounded-lg bg-red-600 text-white"
+          className="px-3 py-2 font-bold rounded-lg bg-red-600 text-white"
         >
           Delete
         </button>
